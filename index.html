@@ -533,10 +533,11 @@ function drawAllTime() {
     " <span>" + n + "</span></td></tr>";
 
   document.querySelector("#alltime tbody").innerHTML =
-    divider("In the league now", active.length + " managers · " + D.current_season) +
+    divider("Active", active.length + " managers · " + D.current_season + " season") +
     active.map(render).join("") +
-    (former.length ? divider("Former managers",
-       former.length + (former.length === 1 ? " manager" : " managers")) +
+    (former.length ? divider("Inactive",
+       former.length + (former.length === 1 ? " manager" : " managers") +
+       " · no longer in the league") +
        former.map(render).join("") : "");
 
   document.querySelectorAll("#alltime th.sortable").forEach(th => {
