@@ -263,6 +263,8 @@ select:focus-visible,th.sortable:focus-visible{outline:2px solid var(--pine);out
 .riv .side.lose{color:var(--ink-3)}
 .riv .side small{display:block;font-family:var(--f-data);font-size:11px;
   color:var(--ink-3);margin-top:2px}
+.riv .rk{font-family:var(--f-data);font-size:11px;color:var(--ink-3);
+  font-weight:400;margin-right:7px;font-variant-numeric:tabular-nums}
 .riv .split{display:flex;gap:2px;height:28px;align-items:stretch}
 .riv .split i{display:block;position:relative}
 .riv .split .a{background:var(--pine);border-radius:3px 0 0 3px}
@@ -737,18 +739,19 @@ pb.addEventListener("change", verdict);
 verdict();
 
 /* ---------- one-sided rivalries ---------- */
-const RIV = (D.rivalries || []).slice(0, 12);
+const RIV = D.rivalries || [];
+const RIV_SHOWN = 20;
 document.getElementById("riv-note").textContent = RIV.length
   ? "Who owns whom. Ranked by how far above .500 the series sits, counting every "
-    + "regular-season and playoff meeting. Pairings need at least "
-    + (D.rivalry_min_meetings || 8) + " games to qualify."
+    + "regular-season and playoff meeting. " + RIV.length + " pairings qualify on "
+    + (D.rivalry_min_meetings || 8) + " games or more."
   : "Not enough games yet to rank rivalries.";
 
-document.getElementById("rivalries").innerHTML = RIV.map(r => {
+const rivRow = (r, i) => {
   const pct = r.w / r.meetings * 100;
   return "<div class='riv" + (r.both_active ? "" : " inactive") + "'>" +
-    "<div class='side lead'>" + r.leader +
-      (r.both_active ? "" : "<span class='tagx'>inactive pairing</span>") +
+    "<div class='side lead'><span class='rk'>" + i + "</span>" + r.leader +
+      (r.both_active ? "" : "<span class='tagx'>inactive</span>") +
       "<small>" + r.ppg_for.toFixed(1) + " pts/gm</small></div>" +
     "<div><div class='split'>" +
       "<i class='a' style='flex:" + r.w + "' data-t='" + r.leader + " won " + r.w + "'></i>" +
@@ -759,7 +762,22 @@ document.getElementById("rivalries").innerHTML = RIV.map(r => {
     "<div class='side lose'>" + r.trailer +
       "<small>" + r.ppg_against.toFixed(1) + " pts/gm</small></div>" +
   "</div>";
-}).join("");
+};
+
+let rivAll = false;
+function drawRivalries() {
+  const list = rivAll ? RIV : RIV.slice(0, RIV_SHOWN);
+  document.getElementById("rivalries").innerHTML =
+    list.map((r, i) => rivRow(r, i + 1)).join("") +
+    (RIV.length > RIV_SHOWN
+      ? "<div class='more'><button type='button' id='rivMore'>" +
+        (rivAll ? "Show top " + RIV_SHOWN + " only"
+                : "Show all " + RIV.length + " pairings") + "</button></div>"
+      : "");
+  const btn = document.getElementById("rivMore");
+  if (btn) btn.addEventListener("click", () => { rivAll = !rivAll; drawRivalries(); });
+}
+drawRivalries();
 
 /* ---------- chat archive ---------- */
 const CHAT = JSON.parse(document.getElementById("chatdata").textContent || "null");
