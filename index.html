@@ -77,12 +77,44 @@ h1,h2,h3{font-family:var(--f-display);font-weight:800;text-wrap:balance;
   letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
 .num{font-family:var(--f-data);font-variant-numeric:tabular-nums}
 
-/* ---------- masthead ---------- */
-.mast{border-bottom:3px solid var(--ink);padding:38px 0 20px;margin-bottom:6px}
-.mast h1{font-size:clamp(58px,12vw,132px);text-transform:uppercase}
-.mast .sub{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:baseline;
-  margin-top:14px;padding-top:12px;border-top:1px solid var(--rule)}
-.mast .sub em{font-style:italic;color:var(--ink-2)}
+/* ---------- site chrome ---------- */
+.site{position:sticky;top:0;z-index:40;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.site .bar{max-width:1140px;margin:0 auto;padding:0 24px;
+  display:flex;align-items:stretch;justify-content:space-between;gap:20px;
+  flex-wrap:wrap;border-bottom:1px solid var(--rule)}
+.brand{display:flex;align-items:baseline;gap:9px;text-decoration:none;
+  color:var(--ink);padding:13px 0 11px;flex:0 0 auto}
+.brand b{font-family:var(--f-display);font-size:27px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.01em;line-height:1}
+.brand span{font-family:var(--f-data);font-size:10px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.brand:hover b{color:var(--pine)}
+
+.subbar{max-width:1140px;margin:0 auto;padding:0 24px}
+.subnav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.subnav::-webkit-scrollbar{display:none}
+.subnav a{font-family:var(--f-data);font-size:10.5px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);
+  text-decoration:none;padding:10px 13px;white-space:nowrap;
+  border-bottom:2px solid transparent}
+.subnav a:hover{color:var(--ink)}
+.subnav a.here{color:var(--pine);border-bottom-color:var(--pine)}
+.subnav:empty{display:none}
+
+/* ---------- stat strip ---------- */
+.statstrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));
+  gap:1px;background:var(--rule);margin:26px 0 8px;border:1px solid var(--rule)}
+.stat{background:var(--surface);padding:12px 14px}
+.stat .k{font-family:var(--f-display);font-size:30px;font-weight:800;
+  line-height:1;color:var(--ink)}
+.stat .k.gold{color:var(--brass)}
+.stat .k small{font-family:var(--f-body);font-size:14px;font-weight:400;
+  font-style:italic;color:var(--ink-2)}
+.stat .l{font-family:var(--f-data);font-size:9.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+.stat .n{font-family:var(--f-display);font-size:21px;font-weight:800;line-height:1.05;
+  color:var(--ink)}
 
 .reign{display:grid;grid-template-columns:auto 1fr;gap:0 26px;align-items:center;
   background:var(--surface);border:1px solid var(--rule);
@@ -94,15 +126,18 @@ h1,h2,h3{font-family:var(--f-display);font-weight:800;text-wrap:balance;
 .reign .note{font-family:var(--f-data);font-size:12px;color:var(--ink-3);
   grid-column:1/-1;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule)}
 
-/* ---------- view tabs ---------- */
-.tabs{display:flex;gap:2px;margin-top:22px;border-bottom:2px solid var(--ink)}
-.tabs button{font-family:var(--f-display);font-size:19px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.02em;padding:10px 20px;cursor:pointer;
-  background:var(--surface-2);color:var(--ink-2);border:1px solid var(--rule);
-  border-bottom:none;border-radius:3px 3px 0 0}
+/* ---------- view tabs (header nav) ---------- */
+.tabs{display:flex;align-items:stretch;gap:0;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{font-family:var(--f-display);font-size:16px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.04em;padding:0 17px;cursor:pointer;
+  background:none;color:var(--ink-3);border:none;
+  border-bottom:3px solid transparent;white-space:nowrap}
 .tabs button:hover{color:var(--ink)}
-.tabs button.on{background:var(--pine);color:#F4F7F2;border-color:var(--pine)}
-.tabs button:focus-visible{outline:2px solid var(--pine);outline-offset:2px}
+.tabs button.on{color:var(--pine);border-bottom-color:var(--pine)}
+.tabs button:focus-visible{outline:2px solid var(--pine);outline-offset:-3px}
+
+section{scroll-margin-top:106px}
 
 /* ---------- chat archive ---------- */
 .search{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;align-items:flex-end}
@@ -325,10 +360,19 @@ td.pos{font-family:var(--f-display);font-size:19px;font-weight:800;color:var(--i
   padding:7px 10px;border-radius:3px;max-width:250px;line-height:1.45;
   white-space:pre-line}
 #tip.on{opacity:1}
-footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--rule);
+footer{margin-top:72px;padding-top:26px;border-top:3px solid var(--ink);
   font-size:13.5px;color:var(--ink-3)}
 footer p{margin:0 0 9px;max-width:74ch}
 footer b{color:var(--ink-2);font-weight:600}
+.footgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:26px;margin-bottom:24px}
+.footcol h5{font-family:var(--f-data);font-size:9.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:0 0 8px}
+.footcol div{font-size:13.5px;color:var(--ink-2);line-height:1.7}
+.footcol a{color:var(--pine)}
+.footmeta{font-family:var(--f-data);font-size:11px;color:var(--ink-3);
+  padding-top:16px;border-top:1px solid var(--rule);
+  display:flex;gap:8px 20px;flex-wrap:wrap}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media (max-width:640px){
   .reign{grid-template-columns:1fr;gap:10px}
@@ -338,22 +382,25 @@ footer b{color:var(--ink-2);font-weight:600}
 </style>
 </head>
 <body>
+
+
+<header class="site">
+  <div class="bar">
+    <a class="brand" href="#" id="brand">
+      <b>Tipp&nbsp;City</b><span id="brand-sub">Fantasy Football</span>
+    </a>
+    <nav class="tabs" id="tabs">
+      <button type="button" data-view="season" id="tab-season">Current Season</button>
+      <button type="button" data-view="book" class="on">Record Book</button>
+      <button type="button" data-view="chat" id="tab-chat" hidden>Chat Archive</button>
+    </nav>
+  </div>
+  <div class="subbar"><nav class="subnav" id="subnav"></nav></div>
+</header>
+
 <div class="wrap">
 
-<div class="mast">
-  <div class="eyebrow" id="mast-eyebrow"></div>
-  <h1>Tipp&nbsp;City</h1>
-  <div class="sub">
-    <span class="num" id="mast-span"></span>
-    <em id="mast-line"></em>
-  </div>
-</div>
-
-<nav class="tabs" id="tabs">
-  <button type="button" data-view="season" id="tab-season">Current Season</button>
-  <button type="button" data-view="book" class="on">Record Book</button>
-  <button type="button" data-view="chat" id="tab-chat" hidden>Chat Archive</button>
-</nav>
+<div class="statstrip" id="statstrip"></div>
 
 <div id="view-season" hidden>
   <div class="reign" id="season-head"></div>
@@ -408,7 +455,6 @@ footer b{color:var(--ink-2);font-weight:600}
 </div>
 
 <div id="view-book">
-<div class="reign" id="reign"></div>
 
 <section>
   <div class="head">
@@ -540,9 +586,22 @@ footer b{color:var(--ink-2);font-weight:600}
 </div>
 
 <footer>
+  <div class="footgrid">
+    <div class="footcol"><h5>The league</h5><div id="foot-league"></div></div>
+    <div class="footcol"><h5>Sections</h5><div id="foot-links"></div></div>
+    <div class="footcol"><h5>Data</h5><div>
+      ESPN Fantasy API &middot; league 169951<br>
+      GroupMe API &middot; A League Full of Cavities<br>
+      Rebuilt every Tuesday
+    </div></div>
+  </div>
   <p><b>Where this comes from.</b> Pulled directly from the ESPN Fantasy API for league 169951, all sixteen seasons (2011&ndash;2026), then cross-checked. Champions were confirmed two independent ways &mdash; ESPN's final calculated rank and the winner of the last game in the winners' bracket &mdash; and every season agrees.</p>
   <p><b>Two honest caveats.</b> 2011 ran two-NFL-week playoff matchups, so twelve of its games are two weeks of scoring combined; those are excluded from single-week records but still count as wins and season points. Seasons before 2018 come from ESPN's older history endpoint, which reports scores as whole numbers &mdash; so pre-2018 figures are accurate but less precise than the decimals from 2018 on.</p>
-  <p><b>2026</b> is in progress: the draft is done and standings are live, but it has no champion yet, so it is excluded from all-time records and the finish grid.</p>
+  <p id="foot-live"></p>
+  <div class="footmeta">
+    <span>Built 26 Aug 2026 at 1:36 PM</span>
+    <span id="foot-counts"></span>
+  </div>
 </footer>
 </div>
 
@@ -557,26 +616,34 @@ const live = D.seasons.filter(s => !s.complete);
 const last = done[done.length - 1];
 const fmt = n => (n === null || n === undefined) ? "–" : n;
 
-/* ---------- masthead ---------- */
-document.getElementById("mast-eyebrow").textContent =
-  "ESPN Fantasy Football · League 169951 · Record Book";
-document.getElementById("mast-span").textContent =
-  done[0].year + "–" + last.year;
-document.getElementById("mast-line").textContent =
-  done.length + " completed seasons, " + D.all_time.length +
-  " managers, " + D.all_time.reduce((a, r) => a + r.wins + r.losses + r.ties, 0) / 2 +
-  " games played.";
+/* ---------- stat strip ---------- */
+const games = D.all_time.reduce((a, r) => a + r.wins + r.losses + r.ties, 0) / 2;
+const beerGal = Math.round(D.beer.total_oz / 128);
+const activeN = D.active_count || D.all_time.filter(r => r.active).length;
+const mostTitles = D.all_time.slice().sort((a, b) => b.title_count - a.title_count)[0];
+const champRec = last.standings.find(t => t.final_rank === 1);
+const sub = txt => "<div class='n' style='font-size:13px;font-family:var(--f-data);" +
+  "font-weight:400;color:var(--ink-3)'>" + txt + "</div>";
+document.getElementById("brand-sub").textContent =
+  done[0].year + "–" + (D.current ? D.current.year : last.year);
+document.getElementById("statstrip").innerHTML = [
+  ["<span class='k gold'>" + last.year + "</span>", "Reigning champion",
+   "<div class='n'>" + last.champion + "</div>" +
+   sub(champRec.wins + "–" + champRec.losses + " · " + champRec.pf.toFixed(0) + " pts")],
+  ["<span class='k'>" + done.length + "</span>", "Completed seasons",
+   sub(done[0].year + "–" + last.year)],
+  ["<span class='k'>" + activeN + "</span>", "Active managers",
+   sub(D.all_time.length + " all time")],
+  ["<span class='k'>" + games.toLocaleString() + "</span>", "Games played",
+   sub(D.rivalries.length + " rivalries")],
+  ["<span class='k'>" + beerGal + "<small> gal</small></span>", "Beer charged",
+   sub(D.beer.total_oz.toLocaleString() + " oz")],
+  ["<span class='k'>" + mostTitles.title_count + "</span>", "Most titles",
+   "<div class='n'>" + mostTitles.owner + "</div>"],
+].map(s => "<div class='stat'>" + s[0] + "<div class='l'>" + s[1] + "</div>" +
+  (s[2] || "") + "</div>").join("");
 
 const champRow = last.standings.find(t => t.final_rank === 1);
-document.getElementById("reign").innerHTML =
-  '<div class="yr">' + last.year + '</div>' +
-  '<div><div class="eyebrow">Reigning champion</div>' +
-  '<div class="who">' + last.champion + '</div>' +
-  '<div class="team">' + last.champion_team + " · " +
-  champRow.wins + "–" + champRow.losses +
-  ", " + champRow.pf.toFixed(1) + " points" + '</div></div>' +
-  (live.length ? '<div class="note">' + live[0].year +
-    " is underway — drafted and playing, no champion yet.</div>" : "");
 
 /* ---------- the tab ---------- */
 const B = D.beer;
@@ -1092,13 +1159,55 @@ if (CHAT && CHAT.msgs && CHAT.msgs.length) {
 }
 
 const HASH = {season: "season", book: "", chat: "archive"};
+const subnav = document.getElementById("subnav");
+let spy = [];
+
+function buildSubnav(v) {
+  const root = views[v];
+  const secs = root ? [...root.querySelectorAll("section")].filter(s => !s.hidden) : [];
+  spy = [];
+  subnav.innerHTML = secs.map(s => {
+    const h = s.querySelector("h2");
+    if (!h) return "";
+    if (!s.id) s.id = "s-" + h.textContent.toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    spy.push(s);
+    return "<a href='#" + s.id + "'>" + h.textContent + "</a>";
+  }).join("");
+  subnav.querySelectorAll("a").forEach(a => a.addEventListener("click", e => {
+    e.preventDefault();
+    document.getElementById(a.getAttribute("href").slice(1))
+      .scrollIntoView({behavior: "smooth", block: "start"});
+  }));
+  markHere();
+}
+
+function markHere() {
+  if (!spy.length) return;
+  const line = 130;
+  let cur = spy[0];
+  for (const s of spy) if (s.getBoundingClientRect().top <= line) cur = s;
+  subnav.querySelectorAll("a").forEach(a =>
+    a.classList.toggle("here", a.getAttribute("href") === "#" + cur.id));
+}
+
 function showView(v) {
   document.querySelectorAll("#tabs button").forEach(x =>
     x.classList.toggle("on", x.dataset.view === v));
   Object.keys(views).forEach(k => { if (views[k]) views[k].hidden = k !== v; });
   location.hash = HASH[v] || "";
+  buildSubnav(v);
   if (v === "chat") document.getElementById("q").focus();
 }
+
+addEventListener("scroll", () => {
+  clearTimeout(window._spyT);
+  window._spyT = setTimeout(markHere, 60);
+}, {passive: true});
+document.getElementById("brand").addEventListener("click", e => {
+  e.preventDefault();
+  scrollTo({top: 0, behavior: "smooth"});
+});
 document.querySelectorAll("#tabs button").forEach(b =>
   b.addEventListener("click", () => showView(b.dataset.view)));
 
@@ -1109,6 +1218,34 @@ if (wantHash === "archive" && CHAT && CHAT.msgs) showView("chat");
 else if (wantHash === "season") showView("season");
 else if (C && C.status === "in_progress") showView("season");
 else showView("book");
+
+/* ---------- footer ---------- */
+document.getElementById("foot-league").innerHTML =
+  "Tipp City &middot; " + done[0].year + "&ndash;" +
+  (D.current ? D.current.year : last.year) + "<br>" +
+  activeN + " active managers, " + D.all_time.length + " all time<br>" +
+  "Reigning champion: " + last.champion + " (" + last.year + ")";
+document.getElementById("foot-links").innerHTML =
+  [["season", "Current Season"], ["book", "Record Book"]]
+    .concat(CHAT && CHAT.msgs ? [["chat", "Chat Archive"]] : [])
+    .map(v => "<a href='#' data-goto='" + v[0] + "'>" + v[1] + "</a>").join("<br>");
+document.getElementById("foot-links").querySelectorAll("a").forEach(a =>
+  a.addEventListener("click", e => {
+    e.preventDefault();
+    showView(a.dataset.goto);
+    scrollTo({top: 0, behavior: "smooth"});
+  }));
+document.getElementById("foot-live").innerHTML = D.current
+  ? "<b>" + D.current.year + "</b> is " +
+    (D.current.status === "preseason"
+      ? "not under way yet" + (D.current.drafted ? "" : " and has not been drafted")
+      : D.current.status === "complete" ? "finished"
+      : "in progress through week " + D.current.weeks_played) +
+    ", so it is excluded from all-time records and the finish grid until it has a champion."
+  : "";
+document.getElementById("foot-counts").textContent =
+  games.toLocaleString() + " games · " + D.rivalries.length + " rivalries" +
+  (CHAT && CHAT.msgs ? " · " + CHAT.msgs.length.toLocaleString() + " chat messages" : "");
 
 /* ---------- tooltip ---------- */
 const tip = document.getElementById("tip");
